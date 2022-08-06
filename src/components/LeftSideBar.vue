@@ -1,15 +1,26 @@
 <template>
   <div class="flex w-full flex-col">
-    <div class="flex flex-col" :key="value" v-for="(item, value, index) in listingItems">
-      <h2 class="text-white text-lg font-medium" :class="{ 'mt-10': index > 0 }">
-        {{ value }}
-      </h2>
-      <router-link :key="subItem.name" :to="subItem.route" v-for="subItem in item">
+    <div class="flex flex-col">
+      <router-link to="/commerce">
         <h3
           class="text-md mt-2"
-          :class="{ 'font-medium text-[#FFFFFF]': $route.path === subItem.route, 'font-light text-[#FFFFFF75]': $route.path !== subItem.route }"
+          :class="{
+            'font-medium text-[#FFFFFF]': $route.path === `/commerce`,
+            'font-light text-[#FFFFFF75]': $route.path !== `/commerce`,
+          }"
         >
-          {{ subItem.name }}
+          Shop All
+        </h3>
+      </router-link>
+      <router-link :key="item.slug" :to="`/commerce/${item.slug}`" v-for="item in listingItems">
+        <h3
+          class="text-md mt-2"
+          :class="{
+            'font-medium text-[#FFFFFF]': $route.path === `/commerce/${item.slug}`,
+            'font-light text-[#FFFFFF75]': $route.path !== `/commerce/${item.slug}`,
+          }"
+        >
+          {{ item.name }}
         </h3>
       </router-link>
     </div>
@@ -20,27 +31,20 @@
 export default {
   data: () => {
     return {
-      listingItems: {
-        'All Categories': [
-          {
-            name: 'Joggers',
-            route: '/commerce/joggers',
-          },
-          {
-            name: 'Jackets',
-            route: '/commerce/jackets',
-          },
-          {
-            name: 'T-Shirts',
-            route: '/commerce/t-shirts',
-          },
-          {
-            name: 'Shop All',
-            route: '/commerce/shop-all',
-          },
-        ],
-      },
+      listingItems: [],
     }
+  },
+  methods: {
+    setListingItems(data) {
+      this.listingItems = data
+    },
+  },
+  mounted() {
+    fetch('/l0-api/categories/all')
+      .then((res) => res.json())
+      .then((res) => {
+        this.setListingItems(res)
+      })
   },
 }
 </script>
