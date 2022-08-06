@@ -19,7 +19,7 @@
               <h4 class="text-md bg-white py-2 px-4 text-black">{{ item.prices.price.value }} {{ item.prices.price.currencyCode }}</h4>
             </div>
             <HeartIcon className="absolute top-0 right-0 h-[30px] w-[30px] bg-white p-2" />
-            <img width="1200" height="1200" loading="lazy" :src="getImage(item.images[0].url)" />
+            <img class="h-[300px] object-cover" width="1200" height="1200" loading="lazy" :src="getImage(item.images[0].url)" />
           </router-link>
         </div>
       </div>
@@ -70,19 +70,19 @@ export default {
     getImage: (url) => relativizeURL(url),
     setProducts(slug, query) {
       let link = window.location.origin
-      fetch(`${link}/l0-api/products/all`)
-        .then((res) => res.json())
-        .then((res) => {
-          let data = res
-          if (slug === 'jackets') {
-            data = data.filter((i) => i.name.toLowerCase().includes('jacket'))
-          } else if (slug === 't-shirts') {
-            data = data.filter((i) => i.name.toLowerCase().includes('t-shirt'))
-          } else if (slug === 'joggers') {
-            data = data.filter((i) => i.name.toLowerCase().includes('jogger'))
-          }
-          this.items = filterProducts(data, query)
-        })
+      if (slug) {
+        fetch(`${link}/l0-api/categories/${slug}`)
+          .then((res) => res.json())
+          .then((res) => {
+            this.items = filterProducts(res['items'], query)
+          })
+      } else {
+        fetch(`${link}/l0-api/products/all`)
+          .then((res) => res.json())
+          .then((res) => {
+            this.items = filterProducts(res, query)
+          })
+      }
     },
   },
 }
