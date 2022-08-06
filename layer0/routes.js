@@ -42,7 +42,7 @@ router.match('/service-worker.js', ({ serviceWorker }) => {
 router.match('/:path*', ({ serveStatic, renderWithApp }) => {
   isProductionBuild()
     ? serveStatic('dist/:path*', {
-        onNotFound: async () => serveStatic('dist/index.html'),
+        onNotFound: ({ serveStatic }) => serveStatic('dist/index.html'),
       })
     : renderWithApp()
 })
