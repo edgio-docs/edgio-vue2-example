@@ -2,21 +2,21 @@
   <div v-if="data" class="flex w-full flex-col items-start">
     <div class="flex w-full flex-col items-start md:flex-row">
       <div class="relative flex w-full flex-col items-start md:w-[65%]">
-        <div class="absolute top-0 left-0 flex flex-col items-start">
+        <div class="absolute top-0 left-0 z-10 flex flex-col items-start">
           <h3 class="bg-white py-2 px-4 text-2xl font-bold text-black">{{ data.name }}</h3>
           <h4 class="bg-white py-2 px-4 text-lg text-black">{{ data.prices.price.value }} {{ data.prices.price.currencyCode }}</h4>
         </div>
         <HeartIcon className="absolute top-0 right-0 h-[50px] w-[50px] bg-white p-2" />
-        <div class="relative flex h-[600px] w-full flex-col items-center">
-          <img :src="relativizeURL(data.images[0].url)" class="h-auto w-full max-w-[600px]" />
+        <div class="relative flex w-full flex-col items-center">
+          <img :src="relativizeURL(data.images[0].url)" class="h-auto w-full max-w-[600px] object-contain" />
         </div>
-        <div class="product-thumbnails flex flex-row items-start overflow-x-scroll">
+        <div class="product-thumbnails mt-5 flex flex-row items-start gap-x-2 overflow-x-scroll">
           <img
             loading="lazy"
             :key="image.url"
             v-for="image in data.images"
             :src="relativizeURL(image.url)"
-            class="h-[250px] w-auto cursor-pointer hover:bg-white"
+            class="h-[250px] w-auto cursor-pointer object-cover hover:bg-white"
           />
         </div>
       </div>
@@ -48,14 +48,14 @@
     <div class="mt-10 h-[1px] w-full bg-gray-300"></div>
     <div class="relative mt-10 flex w-full flex-col">
       <h1 class="px-5 text-2xl font-bold text-[#FFFFFF75]">Related Products</h1>
-      <div v-if="items.length" class="product-thumbnails flex flex-row items-start overflow-x-scroll">
+      <div v-if="items.length" class="product-thumbnails mt-5 flex flex-row items-start gap-x-2 overflow-x-scroll">
         <router-link
           :key="image.path"
-          :to="`/product${image.path}`"
           v-for="image in items"
+          :to="`/product${image.path}`"
           class="h-[250px] min-w-[250px] cursor-pointer hover:bg-white"
         >
-          <img loading="lazy" :src="relativizeURL(image.images[0].url)" class="h-auto w-[250px] cursor-pointer hover:bg-white" />
+          <img loading="lazy" :src="relativizeURL(image.images[0].url)" class="h-[250px] w-auto cursor-pointer object-cover hover:bg-white" />
         </router-link>
       </div>
     </div>
