@@ -1,15 +1,15 @@
 {
   "name": "layer0-vue2-example",
   "scripts": {
-    "layer0": "layer0",
-    "layer0:dev": "layer0 dev",
-    "layer0:build": "layer0 build",
-    "layer0:deploy": "layer0 deploy",
-    "layer0:prod": "layer0 run -p",
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "tailwindcss:watch": "npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css --watch",
-    "tailwindcss:build": "npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css"
+    "tailwindcss:build": "npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css",
+    "layer0:dev": "layer0 dev",
+    "layer0:build": "layer0 build",
+    "layer0:deploy": "layer0 deploy",
+    "layer0:production": "layer0 run --production",
+    "format": "prettier --write '**/*' --ignore-unknown"
   },
   "dependencies": {
     "vue": "^2.6.11",

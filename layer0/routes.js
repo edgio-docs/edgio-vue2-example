@@ -39,12 +39,15 @@ router.match('/service-worker.js', ({ serviceWorker }) => {
   return serviceWorker('dist/service-worker.js')
 })
 
-router.match('/:path*', ({ serveStatic, renderWithApp }) => {
-  isProductionBuild()
-    ? serveStatic('dist/:path*', {
-        onNotFound: ({ serveStatic }) => serveStatic('dist/index.html'),
-      })
-    : renderWithApp()
-})
+if (isProductionBuild()) {
+  router.static('dist')
+  router.fallback(({ serveStatic }) => {
+    serveStatic('dist/index.html')
+  })
+} else {
+  router.fallback(({ renderWithApp }) => {
+    renderWithApp()
+  })
+}
 
 export default router

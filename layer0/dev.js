@@ -16,8 +16,8 @@ module.exports = function () {
     },
   })
   return createDevServer({
-    label: 'Vue 2.0',
-    command: (port) => `PORT=${port} npm run serve & npm run tailwindcss:watch`,
+    label: '[Vue 2.0]',
+    command: (port) => `PORT=${port} npx vue-cli-service serve & npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css --watch`,
     ready: [/localhost:/i],
     filterOutput: (line) => !(line.includes('192.168') || line.includes('localhost')),
   })
