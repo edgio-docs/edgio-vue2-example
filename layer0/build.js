@@ -14,7 +14,7 @@ module.exports = async function build(options) {
     await builder.exec(command)
     esbuild.buildSync({
       entryPoints: [`${appDir}/sw/service-worker.js`],
-      outfile: `${builder.staticAssetsDir}/dist/service-worker.js`,
+      outfile: `${appDir}/dist/service-worker.js`,
       minify: true,
       bundle: true,
       define: {

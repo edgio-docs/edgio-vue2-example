@@ -1,27 +1,23 @@
 <template>
-  <div v-if="data" class="flex w-full flex-col items-start">
-    <div class="flex w-full flex-col items-start md:flex-row">
-      <div class="relative flex w-full flex-col items-start md:w-[65%]">
-        <div class="absolute top-0 left-0 z-10 flex flex-col items-start">
-          <h3 class="bg-white py-2 px-4 text-2xl font-bold text-black">{{ data.name }}</h3>
-          <h4 class="bg-white py-2 px-4 text-lg text-black">{{ data.prices.price.value }} {{ data.prices.price.currencyCode }}</h4>
+  <div v-if="data" class="w-full flex flex-col items-center">
+    <div class="pb-5 flex flex-col max-w-6xl lg:flex-row">
+      <div class="relative flex w-full lg:w-1/2 flex-col items-start">
+        <div class="z-10 absolute top-0 left-0 flex flex-col items-start">
+          <h3 class="border border-gray-200 bg-white py-2 px-4 text-2xl font-bold text-black">{{ data.name }}</h3>
+          <h4 class="border border-gray-200 bg-white py-2 px-4 text-lg text-black">
+            {{ data.prices.price.value }} {{ data.prices.price.currencyCode }}
+          </h4>
         </div>
-        <HeartIcon className="absolute top-0 right-0 h-[50px] w-[50px] bg-white p-2" />
-        <div class="relative flex w-full flex-col items-center">
-          <img :src="relativizeURL(data.images[0].url)" class="h-auto w-full max-w-[600px] object-contain" />
+        <HeartIcon className="z-10 border border-gray-200 absolute top-0 right-0 h-[50px] w-[50px] bg-white p-2" />
+        <div v-if="data.images" class="w-full flex flex-col items-center">
+          <img loading="lazy" :src="relativizeURL(data.images[0].url)" class="h-auto w-full max-w-[600px]" />
         </div>
-        <div class="product-thumbnails mt-5 flex flex-row items-start gap-x-2 overflow-x-scroll">
-          <img
-            loading="lazy"
-            :key="image.url"
-            v-for="image in data.images"
-            :src="relativizeURL(image.url)"
-            class="h-[250px] w-auto cursor-pointer object-cover hover:bg-white"
-          />
+        <div class="mt-5 product-thumbnails flex flex-row gap-x-2 items-start overflow-x-scroll">
+          <img loading="lazy" :key="image.url" v-for="image in data.images" :src="relativizeURL(image.url)" class="h-[250px] w-auto hover:bg-white" />
         </div>
       </div>
-      <div class="flex w-full flex-col items-start px-10 md:w-[35%]">
-        <h1 class="mt-10 text-3xl font-bold text-white md:mt-0">{{ data.name }}</h1>
+      <div class="flex w-full lg:w-1/2 flex-col items-start px-10">
+        <h1 class="mt-10 text-3xl font-bold text-white lg:mt-0">{{ data.name }}</h1>
         <h2 v-html="data.description" class="text-md mt-5 font-light text-[#FFFFFF75]"></h2>
         <div class="mt-10 flex w-full flex-row justify-between">
           <div class="flex flex-row items-center space-x-1">
@@ -45,21 +41,6 @@
         <div class="mt-5 h-[1px] w-full bg-[#FFFFFF30]"></div>
       </div>
     </div>
-    <div class="mt-10 h-[1px] w-full bg-gray-300"></div>
-    <div class="relative mt-10 flex w-full flex-col">
-      <h1 class="px-5 text-2xl font-bold text-[#FFFFFF75]">Related Products</h1>
-      <div v-if="items.length" class="product-thumbnails mt-5 flex flex-row items-start gap-x-2 overflow-x-scroll">
-        <router-link
-          :key="image.path"
-          v-for="image in items"
-          :to="`/product${image.path}`"
-          class="h-[250px] min-w-[250px] cursor-pointer hover:bg-white"
-        >
-          <img loading="lazy" :src="relativizeURL(image.images[0].url)" class="h-[250px] w-auto cursor-pointer object-cover hover:bg-white" />
-        </router-link>
-      </div>
-    </div>
-    <div class="mt-10 h-[1px] w-full bg-gray-300"></div>
   </div>
 </template>
 
@@ -76,23 +57,18 @@
 <script>
 import StarIcon from './StarIcon.vue'
 import HeartIcon from './HeartIcon.vue'
-import LeftSideBar from './LeftSideBar.vue'
-import RightSideBar from './RightSideBar.vue'
-import StarIconOutline from './StarIconOutline.vue'
 import { relativizeURL } from '../../lib/helper'
+import StarIconOutline from './StarIconOutline.vue'
 
 export default {
   name: 'Product',
   components: {
     StarIcon,
     HeartIcon,
-    LeftSideBar,
-    RightSideBar,
     StarIconOutline,
   },
   data: () => {
     return {
-      items: [],
       data: undefined,
     }
   },
@@ -104,13 +80,6 @@ export default {
         .then((res) => res.json())
         .then((res) => {
           this.data = res
-        })
-      fetch(`${link}/l0-api/products/all`)
-        .then((res) => res.json())
-        .then((res) => {
-          if (res && res.length > 0) {
-            this.items = res
-          }
         })
     },
   },
