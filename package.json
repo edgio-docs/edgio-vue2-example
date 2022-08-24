@@ -21,7 +21,7 @@
     "@layer0/devtools": "^4.18.1",
     "@layer0/prefetch": "^4.18.1",
     "@layer0/rum": "^3.1.0",
-    "@layer0/vue": "^4.18.1",
+    "@layer0/vue": "^4.18.4",
     "@vue/cli-service": "~4.5.0",
     "tailwindcss": "^3.1.6",
     "vue-template-compiler": "^2.6.11"
