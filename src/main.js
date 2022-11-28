@@ -28,10 +28,10 @@ new Vue({
   render: (h) => h(App),
 }).$mount('#app')
 
-import Layer0RUM from '../layer0/rum'
-import { install } from '@layer0/prefetch/window'
-import installDevtools from '@layer0/devtools/install'
+import EdgioRUM from '../edgio/rum'
+import { install } from '@edgio/prefetch/window'
+import installDevtools from '@edgio/devtools/install'
 
 installDevtools()
 install({ includeCacheMisses: true })
-Layer0RUM('29f61ab4-db8a-4dcc-9412-e1901c6dad61')
+EdgioRUM('29f61ab4-db8a-4dcc-9412-e1901c6dad61')
