@@ -5,23 +5,21 @@
     "build": "vue-cli-service build",
     "tailwindcss:watch": "npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css --watch",
     "tailwindcss:build": "npx tailwindcss -i ./src/input.css -o ./src/compiled/output.css",
-    "edgio:dev": "edgio dev",
+    "format": "prettier --write '**/*' --ignore-unknown",
     "edgio:build": "edgio build",
-    "edgio:deploy": "edgio deploy",
-    "edgio:production": "edgio run --production",
-    "format": "prettier --write '**/*' --ignore-unknown"
+    "edgio:deploy": "edgio deploy"
   },
   "dependencies": {
     "vue": "^2.6.11",
     "vue-router": "3.5.4"
   },
   "devDependencies": {
-    "@edgio/cli": "^5.0.4",
-    "@edgio/core": "^5.0.4",
-    "@edgio/devtools": "^5.0.4",
-    "@edgio/prefetch": "^5.0.4",
-    "@edgio/rum": "^5.0.8",
-    "@edgio/vue": "^5.0.4",
+    "@edgio/cli": "^6.0.5",
+    "@edgio/core": "^6.0.5",
+    "@edgio/devtools": "^6.0.5",
+    "@edgio/prefetch": "^6.0.5",
+    "@edgio/rum": "^6.0.0",
+    "@edgio/vue": "^6.0.5",
     "@vue/cli-service": "~4.5.0",
     "tailwindcss": "^3.1.6",
     "vue-template-compiler": "^2.6.11"
@@ -30,5 +28,6 @@
     "> 1%",
     "last 2 versions",
     "not dead"
-  ]
+  ],
+  "repository": "git@github.com:edgio-docs/edgio-vue2-example.git"
 }
